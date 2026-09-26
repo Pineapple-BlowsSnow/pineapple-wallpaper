@@ -13,10 +13,6 @@ dist/
 *.tif
 *.tiff
 !Resources/Brand/PineappleTech.jpg
-!Resources/Brand/PineappleMark.png
-!Resources/Brand/PineappleTech.png
-!Resources/Brand/AppIcon/*.png
-!docs/images/hero.png
 *.dmg
 *.zip
 *.log
