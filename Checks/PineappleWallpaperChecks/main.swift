@@ -152,6 +152,25 @@ func makeClip(_ title: String = "Night", filename: String = "video.mp4") -> Clip
             try expect(ScreenSaverConfig.candidates(in: library, selectedID: UUID()).map(\.id) ==
                        [second.id, first.id, third.id], "removed choice falls back")
         }
+        try check("screen saver photo choice survives a separate library read") {
+            let video = makeClip("Video", filename: "video.mp4")
+            let photo = Clip(title: "Photo", filename: "photo.png", digest: String(repeating: "b", count: 64),
+                             bytes: 100, duration: 0, width: 100, height: 100, kind: .photo)
+            var library = Library()
+            library.clips = [video, photo]
+            library.activeID = video.id
+            library.screenSaverID = photo.id
+            library.screenSaverSelectionConfigured = true
+            try repository.save(library)
+            let saverRead = try repository.load()
+            try expect(ScreenSaverConfig.candidates(in: saverRead, selectedID: saverRead.screenSaverID).first?.id == photo.id,
+                       "photo selected across processes")
+            var legacy = try JSONSerialization.jsonObject(with: Data(contentsOf: repository.manifest)) as! [String: Any]
+            legacy.removeValue(forKey: "screenSaverID")
+            legacy.removeValue(forKey: "screenSaverSelectionConfigured")
+            try JSONSerialization.data(withJSONObject: legacy).write(to: repository.manifest)
+            try expect(try repository.load().screenSaverSelectionConfigured == false, "old library decodes for migration")
+        }
         print("\(count) checks passed")
     }
 }
