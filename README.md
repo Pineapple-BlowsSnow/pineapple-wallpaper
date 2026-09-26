@@ -33,7 +33,7 @@
 需要 macOS 15+、Apple Swift 6+ 和 Xcode 命令行工具。项目没有外部 Swift 包依赖。
 
 ```bash
-./scripts/build-app.sh
+bash scripts/build-app.sh
 open dist/PineappleWallpaper.app
 ```
 
@@ -41,10 +41,10 @@ open dist/PineappleWallpaper.app
 
 ```bash
 swift build
-./scripts/check.sh
+bash scripts/check.sh
 ```
 
-发布本地压缩包时，先运行 `./scripts/build-app.sh`，再运行 `./scripts/package-release.sh`；脚本会生成应用、独立屏保和源码三个 ZIP，不会把本机图库打包进去。
+发布本地压缩包时，先运行 `bash scripts/build-app.sh`，再运行 `bash scripts/package-release.sh`；脚本会生成应用、独立屏保和源码三个 ZIP，不会把本机图库打包进去。
 
 如果仅安装了 Command Line Tools 且默认 macOS SDK 与 Swift 编译器版本不匹配，可先设置 `SDKROOT` 为已安装且匹配的 SDK 路径；构建脚本会在检测到本机 macOS 15.4 SDK 时使用它。
 
@@ -70,4 +70,4 @@ swift build
 
 ---
 
-**English:** Pineapple Wallpaper is an offline macOS photo and video wallpaper and screen saver app with a local library, menu bar controls, search, favorites, duplicate detection, and power aware video playback. Import JPEG, PNG, HEIC, TIFF, MP4, or MOV files. Build with `./scripts/build-app.sh` on macOS 15+; open `dist/PineappleWallpaper.app` and install the included `PineappleWallpaper.saver` from its screen saver panel. Run `./scripts/check.sh` for the bundled checks. Personal media is never included in the source repository. See the Chinese sections above for complete usage and limitations.
+**English:** Pineapple Wallpaper is an offline macOS photo and video wallpaper and screen saver app with a local library, menu bar controls, search, favorites, duplicate detection, and power aware video playback. Import JPEG, PNG, HEIC, TIFF, MP4, or MOV files. Build with `bash scripts/build-app.sh` on macOS 15+; open `dist/PineappleWallpaper.app` and install the included `PineappleWallpaper.saver` from its screen saver panel. Run `bash scripts/check.sh` for the bundled checks. Personal media is never included in the source repository. See the Chinese sections above for complete usage and limitations.
