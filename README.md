@@ -4,6 +4,8 @@
 
 **让喜欢的画面，留在你的 Mac 桌面。** 菠萝壁纸是一款由 Pineapple Tech 发起的开源 macOS 壁纸与屏幕保护程序。把自己的照片和视频加入本地图库，就能一键切换桌面画面，也能让屏保跟随当前壁纸或单独选片。它不需要账号，不上传素材，也没有广告和第三方依赖。
 
+**作者：Pineapple-Tech 菠萝吹雪。** 项目使用作者提供的 [Pineapple Tech 标志](Resources/Brand/PineappleTech.jpg)。
+
 支持 JPEG、PNG、HEIC、TIFF 照片，以及 macOS 可播放的 MP4、MOV 视频。照片静态显示，视频静音循环播放。
 
 > 当前阶段：可运行的开源初版，适合在自己的 Mac 上构建与使用。尚未发布经过 Apple 公证的安装包。
