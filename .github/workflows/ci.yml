@@ -1,0 +1,17 @@
+name: Build and checks
+on:
+  push:
+  pull_request:
+jobs:
+  macos:
+    runs-on: macos-15
+    steps:
+      - uses: actions/checkout@v4
+      - name: Build app
+        run: ./scripts/build-app.sh
+      - name: Check library behavior
+        run: ./scripts/check.sh
+      - name: Verify bundle signature
+        run: |
+          codesign --verify --deep --strict dist/PineappleWallpaper.app
+          codesign --verify --strict dist/PineappleWallpaper.saver
