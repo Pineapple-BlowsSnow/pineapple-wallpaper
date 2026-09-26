@@ -1,32 +1,57 @@
-# 菠萝壁纸 Pineapple Wallpaper
+<p align="center">
+  <img src="docs/images/hero.png" alt="菠萝壁纸 · Pineapple Wallpaper — 照片、视频、桌面与屏保" width="960">
+</p>
 
-<img src="Resources/Brand/PineappleTech.jpg" alt="Pineapple Tech Logo" width="160">
+<h1 align="center">菠萝壁纸 · Pineapple Wallpaper</h1>
 
-**把自己的照片和视频，变成可随时切换的 Mac 桌面与屏保。**
+<p align="center"><strong>把喜欢的画面，留在 Mac 桌面。</strong></p>
 
-菠萝壁纸是由 Pineapple Tech 发起的开源 macOS 应用。把影像加入本地图库，点击缩略图即可更换桌面；屏幕保护程序可以跟随当前壁纸，也可以单独选片。素材留在本机，无需账号，也没有广告。
+<p align="center">
+  macOS 15+ &nbsp; · &nbsp; Swift 原生应用 &nbsp; · &nbsp; 本地图库 &nbsp; · &nbsp; MIT 开源代码
+</p>
 
-> **当前状态：**提供可自行构建的开源初版，支持 macOS 15+；尚未发布经过 Apple 公证的安装包。[查看源码](Sources/) · [下载源码 ZIP](PineappleWallpaper-source-0.4.1-reviewed.zip) · [构建方法](#构建)
+<p align="center">
+  <a href="#三步开始">开始使用</a> ·
+  <a href="#功能一览">功能</a> ·
+  <a href="#构建">从源码构建</a> ·
+  <a href="#屏保选图排查">屏保选图排查</a> ·
+  <a href="#参与开发">参与开发</a> ·
+  <a href="#english">English</a>
+</p>
+
+一张喜欢的照片，一段想反复看的风景。菠萝壁纸把它们放进同一个本地图库，让你随时切换桌面，也能为屏幕保护程序单独选择画面。
+
+照片静态显示，视频静音循环播放。无需账号，没有广告，素材保存在自己的 Mac 上。
+
+> **项目状态：**当前版本 0.4.2，提供源码构建方式，尚无经过 Apple 公证的公开安装包。顶部为品牌插画封面，不是软件界面截图。
+
+## 功能一览
+
+| 你想做什么 | 菠萝壁纸如何完成 |
+| --- | --- |
+| 用自己的照片或视频做壁纸 | 批量导入，点击缩略图即可切换；支持 JPEG、PNG、HEIC、TIFF，以及 macOS 可解码的 MP4、MOV |
+| 给屏保选另一张照片 | 选择「跟随当前壁纸」，或独立指定图库中的照片、视频 |
+| 整理越来越多的素材 | 搜索、收藏、重命名、内容哈希去重 |
+| 调整画面显示 | 选择填满屏幕或完整显示；支持连接的多个显示器 |
+| 快速控制播放 | 菜单栏打开图库，`⌘O` 导入，`⌘P` 暂停或继续视频 |
+| 减少闲置时的播放 | 睡眠时暂停，可选择在低电量模式下自动暂停 |
+| 保留自己的原文件 | 导入时创建图库副本；移除只把副本移到废纸篓 |
 
 ## 三步开始
 
-1. 按[构建方法](#构建)生成并打开应用，点击「添加照片或视频」导入自己的素材。
-2. 点击图库缩略图切换壁纸，或从菜单栏快速打开图库。
-3. 如需屏保，打开侧边栏「屏幕保护程序」，选择跟随壁纸或单独选片，点击「安装屏幕保护程序…」，再到系统设置的「墙纸 → 屏幕保护程序 → 其他」选中 PineappleWallpaperSaver。
+1. **构建并打开**：按下方命令生成应用，打开 `dist/PineappleWallpaper.app`。
+2. **加入喜欢的画面**：点击「添加照片或视频」，再点击图库缩略图设为壁纸。
+3. **设置屏保**：打开侧边栏「屏幕保护程序」，选择画面，点击「安装屏幕保护程序…」，然后在 macOS 系统设置中选中菠萝壁纸屏保。
 
-支持 JPEG、PNG、HEIC、TIFF 照片，以及 macOS 可播放的 MP4、MOV 视频。照片静态显示，视频静音循环播放。作者为 **Pineapple-Tech 菠萝吹雪**，项目使用作者提供的 [Pineapple Tech 标志](Resources/Brand/PineappleTech.jpg)。
+## 桌面与屏保，各有自己的画面
 
-想转发项目介绍，可使用[简短版与完整版文案](docs/PROJECT_INTRO.md)。
+桌面显示图库中当前选中的壁纸。屏保默认跟随它；在屏保面板指定另一份素材后，切换桌面不会改变该屏保选择。屏保在下次启动时读取选择，已运行的屏保需要退出后重新启动。
 
-## 功能
-
-- 壁纸库：照片和视频可批量导入，并支持缩略图、搜索、收藏、重命名、内容哈希去重。
-- 桌面显示：照片静态显示、视频静音循环；支持所有连接的显示器，画面可填满或完整显示。
-- 屏保：使用同一图库，跟随当前壁纸或单独选片；照片静态显示，视频静音循环。
-- 快速控制：菜单栏切换，窗口内可暂停/继续视频，`⌘O` 添加照片或视频，`⌘P` 暂停/继续视频。
-- 节能：低电量模式下可自动暂停，Mac 进入睡眠时暂停。
-- 本地保存：照片和视频复制到 `~/Library/Application Support/PineappleWallpaper/Media/`；移除时只把图库副本移到废纸篓，原文件不动。
-- 旧版迁移：首次启动优先复制 `~/Library/Application Support/Flowall/` 的图库，保留视频、当前选择、收藏和播放设置；没有该图库时，再读取更早的 `VideoWallpaper` 图库。原文件均保留。
+```text
+导入照片 / 视频 → 本地图库 → 当前壁纸 → Mac 桌面
+                          └→ 屏保选择 → 系统屏幕保护程序
+                             跟随壁纸 / 独立选片
+```
 
 ## 构建
 
@@ -58,6 +83,17 @@ bash scripts/check.sh
 
 图库目录包括 `library.json`、媒体副本、缩略图和导入暂存文件。旧版纯视频图库会继续读取；导入第一张照片后，记录格式升级为版本 2。请勿把这个目录、个人照片/视频或应用的 `dist/` 目录提交到公开仓库。确认自己有权使用和分发任何打包的素材。
 
+## 屏保选图排查
+
+如果系统屏保显示的不是所选照片，请依次检查：
+
+1. 在应用的「屏幕保护程序」面板确认「下次启动屏保时播放」的名称。
+2. 升级应用后，再点一次「安装屏幕保护程序…」，让系统加载配套的新插件。
+3. 到系统设置确认选中了菠萝壁纸屏保；旧名称可能显示为 `PineappleWallpaperSaver`。
+4. 退出当前屏保，再重新启动。媒体副本缺失或无法解码时，会尝试图库中的其他画面。
+
+应用与屏保通过同一份 `library.json` 共享选择。旧版曾因偏好存储和系统屏保宿主的数据目录不同而读不到所选画面，当前源码已统一选择记录与图库路径。若仍有问题，请提交 macOS 版本、应用版本和复现步骤，不要上传私人素材。
+
 ## 隐私与限制
 
 照片和视频只在本地读取和显示。项目没有网络请求或遥测代码。源文件路径不会保存在新版图库中，媒体会复制到应用数据目录，因此需要额外磁盘空间。当前多个显示器播放同一视频，各显示器从各自的播放器开始播放，切换后可能有少量不同步。屏保每次启动时读取当时的图库与选择；已运行的屏保需要退出并重新启动才会更新。不同机型与视频编码的流畅度取决于 macOS 的硬件解码能力。没有开机自启功能。
@@ -68,6 +104,22 @@ bash scripts/check.sh
 
 参见 [CONTRIBUTING.md](CONTRIBUTING.md) 和 [docs/architecture.md](docs/architecture.md)。问题反馈请描述 macOS 版本、媒体格式/分辨率、复现步骤和日志，不要上传含有个人内容的照片或视频。代码以 MIT 许可证开放；Pineapple Tech 标志和字标单独保留权利，参见 [BRAND.md](BRAND.md)。用户导入的照片和视频不属于本项目的开源素材。
 
----
+## 品牌与作者
 
-**English:** Pineapple Wallpaper is an offline macOS photo and video wallpaper and screen saver app with a local library, menu bar controls, search, favorites, duplicate detection, and power aware video playback. Import JPEG, PNG, HEIC, TIFF, MP4, or MOV files. Build with `bash scripts/build-app.sh` on macOS 15+; open `dist/PineappleWallpaper.app` and install the included `PineappleWallpaper.saver` from its screen saver panel. Run `bash scripts/check.sh` for the bundled checks. Personal media is never included in the source repository. See the Chinese sections above for complete usage and limitations.
+<p align="center">
+  <img src="Resources/Brand/PineappleTech.png" alt="Pineapple Tech 品牌标志" width="260">
+</p>
+
+作者：**Pineapple-Tech 菠萝吹雪**。图标与项目封面使用统一的菠萝品牌素材，小尺寸图标采用简化标识。代码使用 [MIT License](LICENSE)；品牌素材的使用范围见 [BRAND.md](BRAND.md)。
+
+需要分享项目时，可使用[项目介绍文案](docs/PROJECT_INTRO.md)。
+
+## English
+
+**Your photos and videos, on your Mac desktop.** Pineapple Wallpaper is an offline macOS wallpaper and screen saver app built with Swift, SwiftUI, AppKit and AVFoundation.
+
+Import photos or videos into a local library, click to switch wallpapers, and choose a separate screen saver image or let it follow your desktop. Includes search, favorites, duplicate detection, menu bar controls and power-aware video playback. Multiple displays currently share the same selected media.
+
+Requires macOS 15+ and Swift 6+. Build with `bash scripts/build-app.sh`, then open `dist/PineappleWallpaper.app`. Run `bash scripts/check.sh` for library checks. A bundled screen saver can be installed from the app. No Apple-notarized public download is currently available.
+
+Code: MIT. Brand artwork: separate terms in [BRAND.md](BRAND.md). Author: **Pineapple-Tech 菠萝吹雪**.
