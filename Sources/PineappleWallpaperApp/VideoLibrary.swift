@@ -49,13 +49,11 @@ final class VideoLibrary: ObservableObject {
     init(root: URL? = nil) {
         let home = FileManager.default.urls(for: .applicationSupportDirectory, in: .userDomainMask)[0]
         repository = LibraryRepository(root: root ?? home.appendingPathComponent("PineappleWallpaper", isDirectory: true))
-        if let value = ScreenSaverDefaults(forModuleWithName: ScreenSaverConfig.moduleIdentifier)?
-            .string(forKey: ScreenSaverConfig.selectedClipKey) {
-            screenSaverID = UUID(uuidString: value)
-        }
         do {
             try repository.prepare()
             library = try repository.load()
+            try migrateScreenSaverSelectionIfNeeded()
+            screenSaverID = library.screenSaverID
         } catch {
             loadError = error.localizedDescription
             message = "读取壁纸库失败：\(error.localizedDescription)"
@@ -83,6 +81,16 @@ final class VideoLibrary: ObservableObject {
         })
     }
     deinit { timer?.invalidate(); for observer in observers { NotificationCenter.default.removeObserver(observer) } }
+    private func migrateScreenSaverSelectionIfNeeded() throws {
+        guard FileManager.default.fileExists(atPath: repository.manifest.path),
+              !library.screenSaverSelectionConfigured else { return }
+        let oldValue = ScreenSaverDefaults(forModuleWithName: ScreenSaverConfig.moduleIdentifier)?
+            .string(forKey: ScreenSaverConfig.selectedClipKey)
+        let oldID = oldValue.flatMap(UUID.init(uuidString:))
+        library.screenSaverID = oldID.flatMap { id in library.clips.contains(where: { $0.id == id }) ? id : nil }
+        library.screenSaverSelectionConfigured = true
+        try repository.save(library)
+    }
     private func powerChanged() {
         lowPowerActive = ProcessInfo.processInfo.isLowPowerModeEnabled
         engine.setPaused(effectivePause)
@@ -108,6 +116,7 @@ final class VideoLibrary: ObservableObject {
         do {
             try repository.save(next)
             library = next
+            screenSaverID = next.screenSaverID
             apply()
         } catch { message = "保存失败：\(error.localizedDescription)" }
     }
@@ -123,14 +132,14 @@ final class VideoLibrary: ObservableObject {
     func setPowerPause(_ value: Bool) { update { $0.preferences.pauseInLowPowerMode = value } }
     func setScreenSaverClip(_ id: UUID?) {
         guard id == nil || library.clips.contains(where: { $0.id == id }) else { return }
-        guard let defaults = ScreenSaverDefaults(forModuleWithName: ScreenSaverConfig.moduleIdentifier) else {
-            message = "无法保存屏幕保护程序的选择。"
-            return
-        }
-        if let id { defaults.set(id.uuidString, forKey: ScreenSaverConfig.selectedClipKey) }
-        else { defaults.removeObject(forKey: ScreenSaverConfig.selectedClipKey) }
-        guard defaults.synchronize() else { message = "无法保存屏幕保护程序的选择。"; return }
-        screenSaverID = id
+        var next = library
+        next.screenSaverID = id
+        next.screenSaverSelectionConfigured = true
+        do {
+            try repository.save(next)
+            library = next
+            screenSaverID = id
+        } catch { message = "保存屏保选择失败：\(error.localizedDescription)" }
     }
     func installScreenSaver() {
         guard let saver = Bundle.main.builtInPlugInsURL?.appendingPathComponent("PineappleWallpaper.saver"),
@@ -155,7 +164,7 @@ final class VideoLibrary: ObservableObject {
                         try manager.moveItem(at: staged, to: destination)
                     }
                 }.value
-                message = "屏幕保护程序已安装。请在系统设置 → 墙纸 → 屏幕保护程序 → 其他中选择菠萝壁纸。"
+                message = "屏保已安装，但尚未自动启用。请在系统设置 → 墙纸 → 屏幕保护程序 → 其他中选中 PineappleWallpaperSaver。"
             } catch { message = "屏幕保护程序安装失败：\(error.localizedDescription)" }
         }
     }
@@ -177,7 +186,6 @@ final class VideoLibrary: ObservableObject {
         guard !busy else { return }
         let old = library
         update { $0.remove(clip.id) }
-        if screenSaverID == clip.id { setScreenSaverClip(nil) }
         guard old != library else { return }
         if let url = try? repository.mediaURL(clip), FileManager.default.fileExists(atPath: url.path) {
             do { try FileManager.default.trashItem(at: url, resultingItemURL: nil) }
@@ -299,6 +307,8 @@ final class VideoLibrary: ObservableObject {
                     try LibraryMigration.copyIfNeeded(from: previous, to: destination)
                 }.value
                 library = try repository.load()
+                try migrateScreenSaverSelectionIfNeeded()
+                screenSaverID = library.screenSaverID
                 apply()
                 loadThumbnails()
                 message = "已迁移 \(count) 个视频，原视频库仍保留。"

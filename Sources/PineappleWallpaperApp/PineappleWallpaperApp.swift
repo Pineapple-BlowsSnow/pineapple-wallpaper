@@ -153,7 +153,7 @@ private struct ScreenSaverPanel: View {
                     .buttonStyle(.borderedProminent).tint(Theme.leaf)
                 Button("完成") { dismiss() }.buttonStyle(.bordered)
             }
-            Text("安装后，在系统设置 → 墙纸 → 屏幕保护程序 → 其他中选择「菠萝壁纸」（旧缓存可能显示 PineappleWallpaperSaver）。")
+            Text("安装只是第一步；还要在系统设置 → 墙纸 → 屏幕保护程序 → 其他中选中 PineappleWallpaperSaver，屏保才会使用这里选择的画面。")
                 .font(.system(size: 12)).foregroundStyle(.secondary)
             if !model.message.isEmpty { Text(model.message).font(.caption).foregroundStyle(.orange) }
         }
