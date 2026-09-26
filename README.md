@@ -1,16 +1,22 @@
 # 菠萝壁纸 Pineapple Wallpaper
-> 完整源码现以 [ZIP 压缩包](PineappleWallpaper-source-0.4.0-reviewed.zip) 提供，内含 29 个文件。下载并解压后，在解压目录运行下方构建命令；网页中的源码目录尚未全部展开。
 
+<img src="Resources/Brand/PineappleTech.jpg" alt="Pineapple Tech Logo" width="160">
 
-**让喜欢的画面，留在你的 Mac 桌面。** 菠萝壁纸是一款由 Pineapple Tech 发起的开源 macOS 壁纸与屏幕保护程序。把自己的照片和视频加入本地图库，就能一键切换桌面画面，也能让屏保跟随当前壁纸或单独选片。它不需要账号，不上传素材，也没有广告和第三方依赖。
+**把自己的照片和视频，变成可随时切换的 Mac 桌面与屏保。**
 
-**作者：Pineapple-Tech 菠萝吹雪。** 项目使用作者提供的 [Pineapple Tech 标志](Resources/Brand/PineappleTech.jpg)。
+菠萝壁纸是由 Pineapple Tech 发起的开源 macOS 应用。把影像加入本地图库，点击缩略图即可更换桌面；屏幕保护程序可以跟随当前壁纸，也可以单独选片。素材留在本机，无需账号，也没有广告。
 
-支持 JPEG、PNG、HEIC、TIFF 照片，以及 macOS 可播放的 MP4、MOV 视频。照片静态显示，视频静音循环播放。
+> **当前状态：**提供可自行构建的开源初版，支持 macOS 15+；尚未发布经过 Apple 公证的安装包。[查看源码](Sources/) · [下载源码 ZIP](PineappleWallpaper-source-0.4.0-reviewed.zip) · [构建方法](#构建)
 
-> 当前阶段：可运行的开源初版，适合在自己的 Mac 上构建与使用。尚未发布经过 Apple 公证的安装包。
+## 三步开始
 
-适合想用自己的影像装点桌面、又希望文件始终留在本机的 Mac 用户。项目介绍文案见 [docs/PROJECT_INTRO.md](docs/PROJECT_INTRO.md)。
+1. 按[构建方法](#构建)生成并打开应用，点击「添加照片或视频」导入自己的素材。
+2. 点击图库缩略图切换壁纸，或从菜单栏快速打开图库。
+3. 如需屏保，打开侧边栏「屏幕保护程序」，选择跟随壁纸或单独选片，然后点击「安装屏幕保护程序…」。
+
+支持 JPEG、PNG、HEIC、TIFF 照片，以及 macOS 可播放的 MP4、MOV 视频。照片静态显示，视频静音循环播放。作者为 **Pineapple-Tech 菠萝吹雪**，项目使用作者提供的 [Pineapple Tech 标志](Resources/Brand/PineappleTech.jpg)。
+
+想转发项目介绍，可使用[简短版与完整版文案](docs/PROJECT_INTRO.md)。
 
 ## 功能
 
