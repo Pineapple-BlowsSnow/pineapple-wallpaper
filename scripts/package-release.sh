@@ -29,6 +29,8 @@ personal_media_extensions = {'.mp4', '.mov', '.m4v', '.webm', '.jpg', '.jpeg', '
 count = 0
 with zipfile.ZipFile(archive, 'w', compression=zipfile.ZIP_DEFLATED) as output:
     for path in paths:
+        if path.suffix.lower() == '.zip':
+            continue
         if path.suffix.lower() in personal_media_extensions and path.as_posix() != 'Resources/Brand/PineappleTech.jpg':
             continue
         if path.is_file() and not any(part in {'.git', '.build', 'dist', 'Media'} for part in path.parts):
