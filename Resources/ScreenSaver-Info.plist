@@ -7,8 +7,8 @@
 <key>CFBundleIdentifier</key><string>tech.pineapple.wallpaper.saver</string>
 <key>CFBundleName</key><string>菠萝壁纸</string>
 <key>CFBundlePackageType</key><string>BNDL</string>
-<key>CFBundleShortVersionString</key><string>0.4.1</string>
-<key>CFBundleVersion</key><string>5</string>
+<key>CFBundleShortVersionString</key><string>0.4.2</string>
+<key>CFBundleVersion</key><string>6</string>
 <key>LSMinimumSystemVersion</key><string>15.0</string>
 <key>NSPrincipalClass</key><string>PineappleWallpaperSaverView</string>
 <key>NSHumanReadableCopyright</key><string>Copyright © 2026 Pineapple-Tech 菠萝吹雪 and contributors</string>
