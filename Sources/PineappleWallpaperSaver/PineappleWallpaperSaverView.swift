@@ -1,5 +1,6 @@
 import AppKit
 import AVFoundation
+import Darwin
 import ScreenSaver
 
 @objc(PineappleWallpaperSaverView)
@@ -49,17 +50,27 @@ final class PineappleWallpaperSaverView: ScreenSaverView {
     override func startAnimation() {
         super.startAnimation()
         stopPlayback()
-        let home = FileManager.default.urls(for: .applicationSupportDirectory, in: .userDomainMask)[0]
-        let repository = LibraryRepository(root: home.appendingPathComponent("PineappleWallpaper", isDirectory: true))
+        // The system hosts legacy screen savers in its own container. Its
+        // applicationSupportDirectory is not the wallpaper app's library.
+        guard let account = getpwuid(getuid()) else {
+            statusLabel.stringValue = "无法定位当前用户的菠萝壁纸图库"
+            statusLabel.isHidden = false
+            return
+        }
+        let home = URL(fileURLWithPath: String(cString: account.pointee.pw_dir), isDirectory: true)
+        let root = home.appendingPathComponent("Library/Application Support/PineappleWallpaper", isDirectory: true)
+        let repository = LibraryRepository(root: root)
+        guard FileManager.default.fileExists(atPath: repository.manifest.path) else {
+            statusLabel.stringValue = "屏保无法找到菠萝壁纸图库"
+            statusLabel.isHidden = false
+            return
+        }
         guard let library = try? repository.load() else {
             statusLabel.stringValue = "无法读取菠萝壁纸图库"
             statusLabel.isHidden = false
             return
         }
-        let saved = ScreenSaverDefaults(forModuleWithName: ScreenSaverConfig.moduleIdentifier)?
-            .string(forKey: ScreenSaverConfig.selectedClipKey)
-        let selectedID = saved.flatMap(UUID.init(uuidString:))
-        candidates = ScreenSaverConfig.candidates(in: library, selectedID: selectedID)
+        candidates = ScreenSaverConfig.candidates(in: library, selectedID: library.screenSaverID)
             .compactMap { clip in
                 guard let url = try? repository.mediaURL(clip),
                       FileManager.default.fileExists(atPath: url.path) else { return nil }
