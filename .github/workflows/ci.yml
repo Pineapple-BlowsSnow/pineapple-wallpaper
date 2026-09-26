@@ -8,9 +8,9 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - name: Build app
-        run: ./scripts/build-app.sh
+        run: bash scripts/build-app.sh
       - name: Check library behavior
-        run: ./scripts/check.sh
+        run: bash scripts/check.sh
       - name: Verify bundle signature
         run: |
           codesign --verify --deep --strict dist/PineappleWallpaper.app
