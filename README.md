@@ -1,3 +1,7 @@
+<p align="center">
+  <img src="docs/images/hero.png" alt="菠萝壁纸 · Pineapple Wallpaper — 照片、视频、桌面与屏保" width="960">
+</p>
+
 <h1 align="center">菠萝壁纸 · Pineapple Wallpaper</h1>
 
 <p align="center"><strong>把喜欢的画面，留在 Mac 桌面。</strong></p>
@@ -19,7 +23,7 @@
 
 照片静态显示，视频静音循环播放。无需账号，没有广告，素材保存在自己的 Mac 上。
 
-> **项目状态**：当前版本 0.4.2，提供源码构建方式，尚无经过 Apple 公证的公开安装包。
+> **项目状态**：当前版本 0.4.2，提供源码构建方式，尚无经过 Apple 公证的公开安装包。顶部为品牌插画封面，不是软件界面截图。
 
 ## 功能一览
 
@@ -102,9 +106,9 @@ bash scripts/check.sh
 
 ## 作者与许可
 
-作者：**Pineapple-Tech 菠萝吹雪**。代码使用 [MIT License](LICENSE)；应用原有品牌图案的使用范围见 [BRAND.md](BRAND.md)。
+作者：**Pineapple-Tech 菠萝吹雪**。
 
-需要分享项目时，可使用[项目介绍文案](docs/PROJECT_INTRO.md)。
+源代码采用 [MIT License](LICENSE)，欢迎使用、修改和贡献。应用标志与品牌图案的使用范围见 [BRAND.md](BRAND.md)。用户导入的照片和视频不属于项目的开源内容。
 
 ## English
 
