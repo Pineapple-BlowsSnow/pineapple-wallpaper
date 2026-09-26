@@ -60,14 +60,29 @@ public struct Library: Codable, Equatable, Sendable {
     public var schemaVersion: Int = 2
     public var clips: [Clip] = []
     public var activeID: UUID?
+    public var screenSaverID: UUID?
+    public var screenSaverSelectionConfigured = false
     public var preferences = Preferences()
     public init() {}
+    private enum CodingKeys: String, CodingKey {
+        case schemaVersion, clips, activeID, screenSaverID, screenSaverSelectionConfigured, preferences
+    }
+    public init(from decoder: Decoder) throws {
+        let data = try decoder.container(keyedBy: CodingKeys.self)
+        schemaVersion = try data.decode(Int.self, forKey: .schemaVersion)
+        clips = try data.decode([Clip].self, forKey: .clips)
+        activeID = try data.decodeIfPresent(UUID.self, forKey: .activeID)
+        screenSaverID = try data.decodeIfPresent(UUID.self, forKey: .screenSaverID)
+        screenSaverSelectionConfigured = try data.decodeIfPresent(Bool.self, forKey: .screenSaverSelectionConfigured) ?? false
+        preferences = try data.decode(Preferences.self, forKey: .preferences)
+    }
     public var active: Clip? { clips.first { $0.id == activeID } }
     public var totalBytes: Int64 { clips.reduce(0) { $0 + $1.bytes } }
 
     public mutating func remove(_ id: UUID) {
         clips.removeAll { $0.id == id }
         if activeID == id { activeID = clips.first?.id }
+        if screenSaverID == id { screenSaverID = nil }
     }
     public func matching(_ query: String, favoritesOnly: Bool) -> [Clip] {
         let text = query.trimmingCharacters(in: .whitespacesAndNewlines)
@@ -87,6 +102,7 @@ public struct Library: Codable, Equatable, Sendable {
         }
         var repaired = self
         if let id = activeID, !clips.contains(where: { $0.id == id }) { repaired.activeID = clips.first?.id }
+        if let id = screenSaverID, !clips.contains(where: { $0.id == id }) { repaired.screenSaverID = nil }
         return repaired
     }
     public static func safeFilename(_ filename: String) -> Bool {
